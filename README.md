@@ -480,3 +480,44 @@ class Employee extends Person {
 const employee = new Employee();
 console.log(employee.name); // Ausgabe: "Max Mustermann"
 ```
+
+### Singletons & Private Constructos
+
+- Ein privater Konstruktor ist ein Konstruktor, der von außerhalb der Klasse nicht aufgerufen werden kann.
+  - wird typischerweise dazu verwendet, um sicherzustellen, dass eine Klasse nicht direkt instanziiert werden kann, sondern nur über eine statische Methode oder eine Factory-Methode zugänglich ist.
+- Ein Singleton ist ein Entwurfsmuster in der objektorientierten Programmierung, das sicherstellt, dass **nur eine einzige** Instanz einer Klasse existiert und auf diese von verschiedenen Stellen aus zugegriffen werden kann.
+- Das wird typischerweise dadurch erreicht:
+  - dass der Konstruktor der Singleton-Klasse private ist
+  - und eine statische Methode existiert, die die einzige Instanz zurückgibt.
+
+```tsx
+class Singleton {
+  private static instance: Singleton;
+
+  private constructor() {
+    // Privater Konstruktor
+  }
+  // statische Methode für die Rückgabe
+  public static getInstance(): Singleton {
+    // prüfe ob bereits eine Instanz existiert. Falls nein, erstelle eine
+    if (!Singleton.instance) {
+      Singleton.instance = new Singleton();
+    }
+    return Singleton.instance;
+  }
+
+  public doSomething(): void {
+    console.log("Singleton doing something");
+  }
+}
+
+// Beispiel-Nutzung des Singletons
+const singleton1 = Singleton.getInstance();
+const singleton2 = Singleton.getInstance();
+
+console.log(singleton1 === singleton2); // Ausgabe: true
+// true, da immer auf die selbe Instanz verwiesen wird
+
+singleton1.doSomething(); // Ausgabe: "Singleton doing something"
+singleton2.doSomething(); // Ausgabe: "Singleton doing something"
+```
