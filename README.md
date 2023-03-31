@@ -208,6 +208,8 @@ number1 = "1"; // Type '"1"' is not assignable to type 'number'.
   };
   ```
 
+---
+
 ## Classes & instances
 
 OOP steht für Objektorientierte Programmierung. Es ist ein Programmierparadigma, das auf der Konzeptualisierung von Problemen in Form von Objekten und deren Interaktionen basiert.
@@ -521,3 +523,85 @@ console.log(singleton1 === singleton2); // Ausgabe: true
 singleton1.doSomething(); // Ausgabe: "Singleton doing something"
 singleton2.doSomething(); // Ausgabe: "Singleton doing something"
 ```
+
+---
+
+## Interface
+
+- definieren die Struktur von Daten und Methoden, die von einer Klasse oder einem Objekt implementiert werden können.
+- Interfaces dienen als "Verträge" für Klassen, um sicherzustellen, dass sie bestimmte Eigenschaften und Methoden besitzen, um mit anderen Klassen und Objekten interagieren zu können.
+- mit dem Schlüsselwort `implements` wird ein Interface für Klasse, Obejkte oder Funktionen bereitgestellt
+- Interface fields kann man als `readonly` markieren
+- Interfaces sind erweiterbar `extends`
+
+### Interface in einer Klasse implementieren
+
+```tsx
+// Interface erstellen
+interface Shape {
+  name: string;
+  getArea(): number;
+  getPerimeter(): number;
+}
+
+// Klasse "Circle" implementiert das "Shape" Interface
+// dadurch wird erzwungen, dass alle Eigenschaften und Methoden aus dem "Shape" Interface
+// in der Klasse definiert werden
+class Circle implements Shape {
+  constructor(public name: string, public radius: number) {}
+
+  getArea(): number {
+    return Math.PI * this.radius * this.radius;
+  }
+
+  getPerimeter(): number {
+    return 2 * Math.PI * this.radius;
+  }
+}
+```
+
+### Interface in einem Objekt implementiern
+
+```tsx
+interface Person {
+  name: string;
+  age: number;
+  sayHello(): void;
+}
+
+const john: Person = {
+  name: "John",
+  age: 30,
+  sayHello() {
+    console.log(`Hello, my name is ${this.name}`);
+  },
+};
+
+john.sayHello(); // Output: "Hello, my name is John"
+```
+
+### Interface in einer Funktion implementieren
+
+```tsx
+interface Greeter {
+  greet(name: string): void;
+}
+
+function greetPerson(person: Greeter, name: string) {
+  person.greet(name);
+}
+
+const englishGreeter: Greeter = {
+  greet(name: string) {
+    console.log(`Hello, ${name}!`);
+  },
+};
+
+greetPerson(englishGreeter, "John"); // Output: "Hello, John!"
+```
+
+### [Interfaces vs Types](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#differences-between-type-aliases-and-interfaces)
+
+- Interfaces definieren Strukturen, während Types (auch Typalias genannt) Aliase für Typen definieren.
+- Interfaces können erweitert werden, während Types nicht erweitert werden können.
+- Interfaces können deklariert werden, um Klassen, Funktionen und Objekte zu beschreiben, während Types häufiger verwendet werden, um Typen zu benennen, die in der Anwendung verwendet werden.
