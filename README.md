@@ -533,6 +533,7 @@ singleton2.doSomething(); // Ausgabe: "Singleton doing something"
 - mit dem Schlüsselwort `implements` wird ein Interface für Klasse, Obejkte oder Funktionen bereitgestellt
 - Interface fields kann man als `readonly` markieren
 - Interfaces sind erweiterbar `extends`
+- optional `?`
 
 ### Interface in einer Klasse implementieren
 
@@ -565,7 +566,7 @@ class Circle implements Shape {
 ```tsx
 interface Person {
   name: string;
-  age: number;
+  age?: number;
   sayHello(): void;
 }
 
