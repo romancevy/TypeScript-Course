@@ -884,3 +884,58 @@ console.log(name2 ?? "Default Name"); // Ausgabe: "Default Name"
 console.log(name3 ?? "Default Name"); // Ausgabe: "Default Name"
 console.log(name4 ?? "Default Name"); // Ausgabe: "John"
 ```
+
+# Generics
+
+- ermöglichen es uns, Code zu schreiben, der mit verschiedenen Typen verwendet werden kann, ohne dass wir den Code für jeden einzelnen Typ duplizieren müssen.
+- heißt: eine Funktion, die generisch ist, kann mit verschiedenen Eingabetypen arbeiten, und der Rückgabetyp kann sich auch je nach Eingabetyp ändern.
+- Der Compiler analysiert den Code und generiert dann den entsprechenden Code für jeden Typ, mit dem die Funktion aufgerufen wird.
+- Syntax:
+
+  ```tsx
+  // Generics in Funktionen:
+  function functionName<T>(arg1: T): T {
+    // function implementation
+  }
+  ```
+
+  ```tsx
+  // Generics in Klassen
+  class ClassName<T> {
+    // class implementation
+  }
+  ```
+
+```tsx
+// generische Typvariable <T>, dienst als Platzhalter
+// Die Funktion erwartet ein Array von Typ T als Eingabe und gibt das erste Element des Arrays zurück.
+function getFirstElement<T>(array: T[]): T | undefined {
+  return array[0];
+}
+
+const numArray = [1, 2, 3, 4, 5];
+const stringArray = ["apple", "banana", "orange"];
+
+console.log(getFirstElement(numArray)); // Ausgabe: 1
+console.log(getFirstElement(stringArray)); // Ausgabe: "apple"
+```
+
+## Working with Constraints
+
+- Type Constraints ermöglicht die Flexibilität von Generics zu steuern, indem bestimmte Typen ausgeschlossen werden.
+- damit werden die zulässigen Typen begrenzt, die für eine generische Funktion oder Klasse verwendet werden können.
+- Syntax:
+
+  ```tsx
+  // Constraints in Funktionen:
+  function functionName<T extends SomeType>(arg1: T): T {
+    // function implementation
+  }
+  ```
+
+  ```tsx
+  // Constraints in Klassen:
+  class ClassName<T extends SomeType> {
+    // class implementation
+  }
+  ```
