@@ -925,6 +925,7 @@ console.log(getFirstElement(stringArray)); // Ausgabe: "apple"
 - vordefinierte Typen in TypeScript (in der Standardbibliothek von TypeScript enthalten)
 
   - ermöglichen bestimmte Operationen auf Typen durchzuführen, ohne eigene benutzerdefinierte Typen erstellen zu müssen.
+  - TypeScript verfügt über 16 Utility Types
 
 - `Array<T>`: Der generische Typ Array<T> definiert ein Array von Elementen des Typs T.
 - `Tuple<T>`: Der generische Typ Tuple<T> definiert ein Array von Elementen des Typs T mit einer festen Anzahl von Elementen und einer festen Reihenfolge.
@@ -1002,12 +1003,14 @@ console.log(partialPerson); // { name: 'Jane Doe' }
   let address = getProperty(person, "address"); // valid
   let invalid = getProperty(person, "invalid"); // error: Argument of type '"invalid"' is not assignable to parameter of type '"name" | "age" | "address"'
   ```
+
 ## Generics vs Unions
-|  | Generics | Unionstypen |
-| --- | --- | --- |
-| Zweck | Erstellung von wiederverwendbarem Code mit unterschiedlichen Datentypen | Erstellung von flexiblen Typdefinitionen, die aus mehreren konkreten Typen bestehen |
-| Syntax | Verwendung von Typvariablen (z.B. T, U, V) | Verwendung des Pipe-Symbols (`|`) |
-| Beispiel | function getLength<T>(arg: T[]): number { return arg.length; } | `let myVariable: number | string |
+
+|            | Generics                                                                                                                       | Unionstypen                                                                                                                     |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------- | ------ |
+| Zweck      | Erstellung von wiederverwendbarem Code mit unterschiedlichen Datentypen                                                        | Erstellung von flexiblen Typdefinitionen, die aus mehreren konkreten Typen bestehen                                             |
+| Syntax     | Verwendung von Typvariablen (z.B. T, U, V)                                                                                     | Verwendung des Pipe-Symbols (`                                                                                                  | `)     |
+| Beispiel   | function getLength<T>(arg: T[]): number { return arg.length; }                                                                 | `let myVariable: number                                                                                                         | string |
 | Verwendung | Vermeidung von Duplikation von Code durch Verwendung von Typvariablen, die durch verschiedene Datentypen ersetzt werden können | Erstellung von Typdefinitionen, die aus mehreren konkreten Typen bestehen, um mehr Flexibilität in der Anwendung zu ermöglichen |
-| Vorteile | Hohe Wiederverwendbarkeit von Code, einfache Handhabung von verschiedenen Datentypen | Flexibilität bei der Definition von Typen, Möglichkeit zur Überladung von Funktionen |
-| Nachteile | Kann komplex werden, wenn zu viele Typvariablen verwendet werden | Kann unübersichtlich werden, wenn zu viele konkrete Typen in einem Unionstyp kombiniert werden |
+| Vorteile   | Hohe Wiederverwendbarkeit von Code, einfache Handhabung von verschiedenen Datentypen                                           | Flexibilität bei der Definition von Typen, Möglichkeit zur Überladung von Funktionen                                            |
+| Nachteile  | Kann komplex werden, wenn zu viele Typvariablen verwendet werden                                                               | Kann unübersichtlich werden, wenn zu viele konkrete Typen in einem Unionstyp kombiniert werden                                  |
