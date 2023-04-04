@@ -885,7 +885,7 @@ console.log(name3 ?? "Default Name"); // Ausgabe: "Default Name"
 console.log(name4 ?? "Default Name"); // Ausgabe: "John"
 ```
 
-# Generics
+# [Generics](https://www.typescriptlang.org/docs/handbook/2/generics.html)
 
 - ermöglichen es uns, Code zu schreiben, der mit verschiedenen Typen verwendet werden kann, ohne dass wir den Code für jeden einzelnen Typ duplizieren müssen.
 - heißt: eine Funktion, die generisch ist, kann mit verschiedenen Eingabetypen arbeiten, und der Rückgabetyp kann sich auch je nach Eingabetyp ändern.
@@ -920,6 +920,41 @@ console.log(getFirstElement(numArray)); // Ausgabe: 1
 console.log(getFirstElement(stringArray)); // Ausgabe: "apple"
 ```
 
+## Built-in generic types ([Utility Types](https://www.typescriptlang.org/docs/handbook/utility-types.html))
+
+- vordefinierte Typen in TypeScript (in der Standardbibliothek von TypeScript enthalten)
+
+  - ermöglichen bestimmte Operationen auf Typen durchzuführen, ohne eigene benutzerdefinierte Typen erstellen zu müssen.
+
+- `Array<T>`: Der generische Typ Array<T> definiert ein Array von Elementen des Typs T.
+- `Tuple<T>`: Der generische Typ Tuple<T> definiert ein Array von Elementen des Typs T mit einer festen Anzahl von Elementen und einer festen Reihenfolge.
+- `Readonly<T>`: Der generische Typ Readonly<T> definiert einen schreibgeschützten Typ, der alle Eigenschaften von T als schreibgeschützt deklariert.
+- `Record<K, V>`: Der generische Typ Record<K, V> definiert einen Typ, der ein Objekt mit Schlüsseln vom Typ K und Werten vom Typ V darstellt.
+- `Partial<T>`: Der generische Typ Partial<T> definiert einen Typ, der alle Eigenschaften von <T> optional macht
+
+```tsx
+// Anwendungsbeispiel für Partial
+interface Person {
+  name: string;
+  age: number;
+  address: string;
+}
+
+// Hier wird der Typ Person in einen Partial<Person> umgewandelt, so dass alle Felder optional sind
+type PartialPerson = Partial<Person>;
+
+const person: PartialPerson = {}; // valid
+person.name = "John Doe";
+person.age = 30;
+person.address = "123 Main St";
+console.log(person); // { name: 'John Doe', age: 30, address: '123 Main St' }
+
+const partialPerson: PartialPerson = {
+  name: "Jane Doe",
+};
+console.log(partialPerson); // { name: 'Jane Doe' }
+```
+
 ## Working with Constraints
 
 - Type Constraints ermöglicht die Flexibilität von Generics zu steuern, indem bestimmte Typen ausgeschlossen werden.
@@ -939,3 +974,40 @@ console.log(getFirstElement(stringArray)); // Ausgabe: "apple"
     // class implementation
   }
   ```
+
+  ### `keyof` constraints
+
+  - wird verwendet um den Schlüsseltyp eines Objekts zu erhalten.
+
+  ```tsx
+  interface Person {
+    name: string;
+    age: number;
+    address: string;
+  }
+
+  // key muss eine Eigenschaft von T sein
+  function getProperty<T, K extends keyof T>(obj: T, key: K) {
+    return obj[key];
+  }
+
+  let person: Person = {
+    name: "John Doe",
+    age: 30,
+    address: "123 Main St",
+  };
+
+  let name = getProperty(person, "name"); // valid
+  let age = getProperty(person, "age"); // valid
+  let address = getProperty(person, "address"); // valid
+  let invalid = getProperty(person, "invalid"); // error: Argument of type '"invalid"' is not assignable to parameter of type '"name" | "age" | "address"'
+  ```
+## Generics vs Unions
+|  | Generics | Unionstypen |
+| --- | --- | --- |
+| Zweck | Erstellung von wiederverwendbarem Code mit unterschiedlichen Datentypen | Erstellung von flexiblen Typdefinitionen, die aus mehreren konkreten Typen bestehen |
+| Syntax | Verwendung von Typvariablen (z.B. T, U, V) | Verwendung des Pipe-Symbols (`|`) |
+| Beispiel | function getLength<T>(arg: T[]): number { return arg.length; } | `let myVariable: number | string |
+| Verwendung | Vermeidung von Duplikation von Code durch Verwendung von Typvariablen, die durch verschiedene Datentypen ersetzt werden können | Erstellung von Typdefinitionen, die aus mehreren konkreten Typen bestehen, um mehr Flexibilität in der Anwendung zu ermöglichen |
+| Vorteile | Hohe Wiederverwendbarkeit von Code, einfache Handhabung von verschiedenen Datentypen | Flexibilität bei der Definition von Typen, Möglichkeit zur Überladung von Funktionen |
+| Nachteile | Kann komplex werden, wenn zu viele Typvariablen verwendet werden | Kann unübersichtlich werden, wenn zu viele konkrete Typen in einem Unionstyp kombiniert werden |
