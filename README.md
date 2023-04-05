@@ -1115,5 +1115,5 @@ const myClassInstance = new MyClass("MyClass");
 - ist eine Funktion, die einen Decorator zurückgibt. (Eine Funktion in einer Funktion)
 
 ```tsx
-
+// UNVOLLSTÄNDIG - MUSS ÜBERARBEITET WERDEN!
 ```
