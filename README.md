@@ -1014,3 +1014,106 @@ console.log(partialPerson); // { name: 'Jane Doe' }
 | Verwendung | Vermeidung von Duplikation von Code durch Verwendung von Typvariablen, die durch verschiedene Datentypen ersetzt werden können | Erstellung von Typdefinitionen, die aus mehreren konkreten Typen bestehen, um mehr Flexibilität in der Anwendung zu ermöglichen |
 | Vorteile   | Hohe Wiederverwendbarkeit von Code, einfache Handhabung von verschiedenen Datentypen                                           | Flexibilität bei der Definition von Typen, Möglichkeit zur Überladung von Funktionen                                            |
 | Nachteile  | Kann komplex werden, wenn zu viele Typvariablen verwendet werden                                                               | Kann unübersichtlich werden, wenn zu viele konkrete Typen in einem Unionstyp kombiniert werden                                  |
+
+# [Decorators](https://www.typescriptlang.org/docs/handbook/decorators.html)
+
+- ermöglichen Metadaten zu definieren und an verschiedenen Stellen im Code anzuwenden, um das Verhalten von Klassen, Methoden oder Eigenschaften zu ändern oder zu erweitern.
+- kann auf folgende Deklarationen angewendet werden:
+  - Klassen
+  - Methoden
+  - Getter und Setter
+  - Eigenschaften
+  - Parameter von Funktionen oder Methoden
+- werden mit dem `@`-Zeichen vor dem Element deklariert, auf das sie angewendet werden sollen
+
+> Möglicherweise muss für die Decorator-funktionalität `"experimentalDecorators": true` aktiviert werden
+
+```tsx
+// Hier definieren wir einen Decorator "logClass" für eine Klasse.
+// Ein Decorator ist im Prinzip nur eine Funktion
+function logClass(target: Function) {
+  console.log(`Class ${target.name} is being logged!`);
+}
+
+// Hier wenden wir den Decorator "logClass" auf die Klasse "MyClass" an.
+@logClass
+class MyClass {
+  constructor(private name: string) {}
+}
+
+// Wenn wir die Klasse "MyClass" instantiieren, wird der Text "Class MyClass is being logged!" ausgegeben.
+const myClassInstance = new MyClass("MyClass");
+```
+
+- die Dekorator-Funktion Signatur kann sich je nach Deklaration unterscheiden
+
+  - jeder Parameter hat eine unterschiedliche Bedeutung
+    - `target`: Steht für das Zielobjekt, auf das der Decorator angewendet wird. Je nachdem, wo der Decorator platziert wird, kann es sich um die Klasse selbst oder um die Instanz der Klasse handeln.
+    - `propertyKey`: Steht für den Namen der Eigenschaft oder Methode, auf die der Decorator angewendet wird.
+    - `descriptor`: Steht für das Property Descriptor-Objekt der Eigenschaft oder Methode, auf die der Decorator angewendet wird.
+
+  1. Klassen
+
+  ```tsx
+  // T - definiert eine generische Klasse, die einen Konstruktor mit beliebigen Argumenten erwartet.
+  function classDecorator<T extends { new (...args: any[]): {} }>(
+    constructor: T
+  ) {
+    return class extends constructor {
+      newProperty = "new property";
+      hello = "override";
+    };
+  }
+  ```
+
+  2. Methoden
+
+  ```tsx
+  function methodDecorator(
+    target: any,
+    propertyKey: string,
+    descriptor: PropertyDescriptor
+  ) {
+    // decorator logic here
+  }
+  ```
+
+  3. Getter und Setter
+
+  ```tsx
+  function getterSetterDecorator(
+    target: any,
+    propertyKey: string,
+    descriptor: PropertyDescriptor
+  ) {
+    // decorator logic here
+  }
+  ```
+
+  4. Eigenschaften
+
+  ```tsx
+  function propertyDecorator(target: any, propertyKey: string) {
+    // decorator logic here
+  }
+  ```
+
+  5. Parameter von Funktionen oder Methoden
+
+  ```tsx
+  function parameterDecorator(
+    target: Object,
+    propertyKey: string | symbol,
+    parameterIndex: number
+  ) {
+    // decorator logic here
+  }
+  ```
+
+## [Decorator Factories](https://www.typescriptlang.org/docs/handbook/decorators.html#decorator-factories)
+
+- ist eine Funktion, die einen Decorator zurückgibt. (Eine Funktion in einer Funktion)
+
+```tsx
+
+```
