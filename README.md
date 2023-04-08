@@ -1117,3 +1117,96 @@ const myClassInstance = new MyClass("MyClass");
 ```tsx
 // UNVOLLSTÄNDIG - MUSS ÜBERARBEITET WERDEN!
 ```
+
+---
+
+# Modules & [Namespaces](https://www.typescriptlang.org/docs/handbook/namespaces.html#handbook-content)
+
+- Ein **Modul** ist eine Datei, die einen oder mehrere verwandte Codesegmente enthält, wie z.B. Klassen, Funktionen, Konstanten und Variablen, die dann in anderen Dateien wiederverwendet werden können
+
+  - Diese Modularisierung hilft, Code zu organisieren, ihn leichter zu warten und verhindert Namenskonflikte, indem jeder Variablen oder Funktion eindeutige Namen im Kontext des Moduls zugewiesen werden.
+  - Für die Zugänglichkeit ist ein `export` notwendig. Entwerder von der gesamten Datei oder nur bestimmten Teilen davon
+
+- Namespaces dienen dazu, den globalen Namespace zu organisieren, indem sie Variablen und Funktionen in einem bestimmten Namensraum zusammenfassen.
+  - werden mit dem Schlüsselwort `namespace` definiert und können sowohl innerhalb als auch außerhalb von Modulen verwendet werden.
+
+## Modules vs Namespaces
+
+Während Module in der Regel eine Gruppierung von verwandten Funktionen, Klassen und Interfaces darstellen, die exportiert werden können, um von anderen Modulen importiert zu werden, ist ein Namespace einfach ein Container für verwandte Funktionen, Klassen und Interfaces, der das Risiko von Namenskonflikten in großen Codebasen verringert.
+
+Namespaces können auch in Zusammenhang mit Modulen verwendet werden, um den Code zu organisieren und gleichzeitig die globale Namenskonvention aufzuteilen.
+
+```tsx
+// mynamespaces.ts
+namespace MyNamespace {
+  export function myFunction() {
+    console.log("Hello from myFunction!");
+  }
+}
+```
+
+```tsx
+👇 spezielle Syntax beachten!
+/// <reference path="mynamespaces.ts"/>
+
+namespace MyNamespace {
+  myFunction()
+}
+// Ausgabe: Hello from myFunction!
+```
+
+⚠️ Damit der obere Code funktioniert müssen folgende Einstellungen getätigt werden
+
+1. in der tsconfig.json `"module": "amd"` einstellen
+   - [CommonJS vs AMD vs RequireJS vs ES6 Modules](https://medium.com/computed-comparisons/commonjs-vs-amd-vs-requirejs-vs-es6-modules-2e814b114a0b)
+2. in der tsconfig.json `"outFile": "./dist/bundle.js"`
+   - bündelt alle Dateien zu einer einzigen bundle.js Datei zusammen
+3. in der index.html das `<script src="dist/bundle.js" defer></script>` anpassen
+
+Namespaces oder die kombination mit Modulen bringen einige Nachteile mit sich:
+
+- Namespaces sind nicht so flexibel wie Module, da sie keine Möglichkeit bieten, Dateien und Abhängigkeiten zu verwalten.
+
+- Namespaces können schwierig zu verwenden sein, wenn sie in Kombination mit anderen Modulen oder Bibliotheken verwendet werden.
+
+- Es besteht das Risiko von Namenskonflikten, da Namespaces möglicherweise gleiche Namen für Funktionen, Variablen oder Klassen in unterschiedlichen Modulen haben.
+
+- Bei der Verwendung von Namespaces muss manuell sichergestellt werden, dass sie in der richtigen Reihenfolge geladen werden, da sie nicht von selbst aufgelöst werden.
+
+Eine bessere Lösung wären die ES-Module!
+
+## [ES Modules](https://www.typescriptlang.org/docs/handbook/2/modules.html#es-module-syntax)
+
+- bieten eine Möglichkeit, Code in separate Module zu unterteilen und diese Module über einen Export-Mechanismus anderen Teilen der Anwendung zur Verfügung zu stellen.
+- in ECMAScript 6 (ES6) eingeführt
+- wird von modernen Browsern unterstützt
+- zur Unterstützung in älteren Browsern ist ein Modulbundler wie Webpack erforderlich
+
+### Syntax
+
+- Named export `export function myFunction(){...}`
+  - import: `import {myFunction} from ...`
+- Default export `export default function myFunction(){...}`
+  - nur ein einziger export pro Datei erlaubt
+  - import: `import PLATZHALTER from ...`
+  - die Bezeichnung für "PLATZHALTER" kann beliebig sein
+- Group import: `import * as Greet from ...`
+  - Verwendung: `Greet.myFunction()`
+- Aliases: `as ...`
+
+```tsx
+// functions.ts
+export function myFunction() {
+  console.log("Hello from myFunction!");
+}
+```
+
+```tsx
+// app.ts
+import { myFunction } from "functions.ts";
+
+myFunction();
+// Ausgabe: Hello from myFunction!
+```
+
+
