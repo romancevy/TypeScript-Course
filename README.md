@@ -1163,7 +1163,7 @@ namespace MyNamespace {
    - bündelt alle Dateien zu einer einzigen bundle.js Datei zusammen
 3. in der index.html das `<script src="dist/bundle.js" defer></script>` anpassen
 
-Namespaces oder die kombination mit Modulen bringen einige Nachteile mit sich:
+👎 Namespaces oder die kombination mit Modulen bringen einige Nachteile mit sich:
 
 - Namespaces sind nicht so flexibel wie Module, da sie keine Möglichkeit bieten, Dateien und Abhängigkeiten zu verwalten.
 
@@ -1211,3 +1211,129 @@ myFunction();
 ```
 
 # Using Webpack with TypeScript
+
+- [Webpack](https://webpack.js.org/concepts/) ist ein Open-Source-Modulbundler für JavaScript-Anwendungen.
+- Unterstützt das Zusammenfassen von verschiedenen Modulen und Abhängigkeiten in ein einzelnes Bundle
+- Verwaltet Assets wie CSS-Dateien und Bilder
+- Unterstützt das Laden von Modulen asynchron
+
+👍 Vorteile:
+
+- Verbesserte Wartbarkeit und Skalierbarkeit von Code durch Verwendung von Modulen
+- Verbesserte Browserkompatibilität durch Transpilierung oder Vorverarbeitung von Code
+- Einfache Verwaltung von Assets wie CSS-Dateien und Bilder
+- Unterstützt das Laden von Modulen asynchron, was die Ladezeit der Anwendung reduzieren kann
+- Kann mit verschiedenen Frontend-Frameworks und -Bibliotheken verwendet werden
+
+👎 Nachteile:
+
+- Kann bei der Konfiguration und Verwendung komplex sein
+- Erhöht die Build-Zeit und Größe der Anwendung durch das Zusammenfassen aller Abhängigkeiten in einem Bundle
+- Schwierig zu debuggen, wenn Fehler im Build-Prozess auftreten
+- Benötigt möglicherweise zusätzliche Konfiguration und Integration mit anderen Build-Tools oder - Entwicklungsumgebungen
+
+## Installing Webpack & Dependencies
+
+```bash
+npm install --save-dev webpack
+npm install --save-dev webpack-cli
+npm install --save-dev webpack-dev-server
+npm install --save-dev typescript
+npm install --save-dev ts-loader
+```
+
+## Using a Configuration [Basic setup](https://webpack.js.org/guides/typescript/)
+
+1. `webpack.config.js` im Projekt erstellen
+
+```js
+// development workflow
+const path = require("path");
+
+module.exports = {
+  mode: "development",
+  entry: "./src/app.ts",
+  devServer: {
+    static: [
+      {
+        directory: path.join(__dirname),
+      },
+    ],
+  },
+  output: {
+    filename: "bundle.js",
+    path: path.resolve(__dirname, "dist"),
+    publicPath: "/dist/",
+  },
+  module: {
+    rules: [
+      {
+        test: /\.tsx?$/,
+        use: "ts-loader",
+        exclude: /node_modules/,
+      },
+    ],
+  },
+  resolve: {
+    extensions: [".ts", ".js"],
+  },
+};
+```
+
+- Für Production:
+  - Das Plugin ermöglicht das automatische Aufräumen von Build-Verzeichnissen
+  - `npm i clean-webpack-plugin`
+
+```js
+// production workflow
+const path = require("path");
+const CleanPlugin = require("clean-webpack-plugin");
+
+module.exports = {
+  mode: "production",
+  entry: "./src/app.ts", // Einstiegspunkt der Anwendung
+  devServer: {
+    static: [
+      {
+        directory: path.join(__dirname),
+      },
+    ],
+  },
+  // Ausgabepfad und der Dateiname für das generierte JavaScript
+  output: {
+    filename: "bundle.js",
+    path: path.resolve(__dirname, "dist"),
+  },
+  // definiert die Loader, die auf die verschiedenen Dateitypen angewendet werden sollen.
+  module: {
+    rules: [
+      {
+        test: /\.tsx?$/,
+        use: "ts-loader",
+        exclude: /node_modules/,
+      },
+    ],
+  },
+  // definiert die Dateiendungen, die automatisch aufgelöst werden sollen, wenn Module importiert werden.
+  resolve: {
+    extensions: [".ts", ".js"],
+  },
+  // zusätzliche Plugins, um den Build-Prozess anzupassen
+  plugins: [new CleanPlugin.CleanWebpackPlugin()],
+};
+```
+
+- production workflow
+  `npm install --save-dev clean-webpack-plugin`
+
+# Working with 3rd Party Libraries & TypeScript
+
+Um mit Drittanbieter-Bibliotheken in TypeScript zu arbeiten, müssen zunächst die Typ-Definitionen für diese Bibliotheken verfügbar gemacht werden. Die Typ-Definitionen enthalten Informationen über die Struktur und Verwendung der Bibliothek, einschließlich der Klassendefinitionen, der Methoden, der Parameter und der Rückgabetypen.
+
+Es gibt mehrere Möglichkeiten, um Typ-Definitionen für 3rd Party Libraries in TypeScript zu verwenden:
+
+- @types/-Paket: Viele Bibliotheken stellen bereits Typ-Definitionen als npm-Paket bereit, das mit dem Präfix "@types/" beginnt. Zum Beispiel können die Typ-Definitionen für die jQuery-Bibliothek mit dem Befehl `npm install @types/jquery` installiert werden.
+
+- Manuelle Typ-Definitionen: Wenn keine Typ-Definitionen für eine Bibliothek verfügbar sind, können eigene manuelle Typ-Definitionen erstellt werden, indem man eine .d.ts-Datei mit den entsprechenden Typen erstellt.
+
+- Typ-Definitionen von DefinitelyTyped: Die DefinitelyTyped-Community bietet eine Sammlung von Typ-Definitionen für viele Bibliotheken, die in einem separaten Repository auf GitHub gespeichert sind.

@@ -1,5 +1,5 @@
-import { ProjectInput } from "./components/project-input.js";
-import { ProjectList } from "./components/project-list.js";
+import { ProjectInput } from "./components/project-input";
+import { ProjectList } from "./components/project-list";
 
 //? Drag & Drop API
 //? https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API
