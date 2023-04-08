@@ -1181,6 +1181,7 @@ Eine bessere Lösung wären die ES-Module!
 - in ECMAScript 6 (ES6) eingeführt
 - wird von modernen Browsern unterstützt
 - zur Unterstützung in älteren Browsern ist ein Modulbundler wie Webpack erforderlich
+- ein Bundler lösst auch das Problem mit den vielen Anfragen beim Ladevorgang der App
 
 ### Syntax
 
@@ -1209,4 +1210,4 @@ myFunction();
 // Ausgabe: Hello from myFunction!
 ```
 
-
+# Using Webpack with TypeScript
