@@ -1117,7 +1117,11 @@ const myClassInstance = new MyClass("MyClass");
 ```tsx
 // Syntax:
 function decoratorFactory(params: any) {
-  return function decorator(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+  return function decorator(
+    target: any,
+    propertyKey: string,
+    descriptor: PropertyDescriptor
+  ) {
     // ...
   };
 }
@@ -1214,6 +1218,8 @@ import { myFunction } from "functions.ts";
 myFunction();
 // Ausgabe: Hello from myFunction!
 ```
+
+---
 
 # Using Webpack with TypeScript
 
@@ -1328,6 +1334,8 @@ module.exports = {
   plugins: [new CleanPlugin.CleanWebpackPlugin()],
 };
 ```
+
+---
 
 # Working with 3rd Party Libraries & TypeScript
 
