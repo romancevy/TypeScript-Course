@@ -1006,7 +1006,7 @@ console.log(partialPerson); // { name: 'Jane Doe' }
 
 ## Generics vs Unions
 
-| .          | Generics                                                                                                                       | Unionstypen                                                                                                                     |
+|            | Generics                                                                                                                       | Unionstypen                                                                                                                     |
 | ---------- | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------- |
 | Zweck      | Erstellung von wiederverwendbarem Code mit unterschiedlichen Datentypen                                                        | Erstellung von flexiblen Typdefinitionen, die aus mehreren konkreten Typen bestehen                                             |
 | Syntax     | Verwendung von Typvariablen (z.B. T, U, V)                                                                                     | Verwendung des Pipe-Symbols                                                                                                     |
@@ -1111,10 +1111,16 @@ const myClassInstance = new MyClass("MyClass");
 
 ## [Decorator Factories](https://www.typescriptlang.org/docs/handbook/decorators.html#decorator-factories)
 
-- ist eine Funktion, die einen Decorator zurückgibt. (Eine Funktion in einer Funktion)
+- ist eine Funktion, die eine Decoratorfunktion zurückgibt.
+- ähnlich wie die Syntax von Higher-Order-Funktionen
 
 ```tsx
-// UNVOLLSTÄNDIG - MUSS ÜBERARBEITET WERDEN!
+// Syntax:
+function decoratorFactory(params: any) {
+  return function decorator(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+    // ...
+  };
+}
 ```
 
 ---
