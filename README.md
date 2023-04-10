@@ -1006,7 +1006,7 @@ console.log(partialPerson); // { name: 'Jane Doe' }
 
 ## Generics vs Unions
 
-|            | Generics                                                                                                                       | Unionstypen                                                                                                                     |
+| .          | Generics                                                                                                                       | Unionstypen                                                                                                                     |
 | ---------- | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------- | ------ |
 | Zweck      | Erstellung von wiederverwendbarem Code mit unterschiedlichen Datentypen                                                        | Erstellung von flexiblen Typdefinitionen, die aus mehreren konkreten Typen bestehen                                             |
 | Syntax     | Verwendung von Typvariablen (z.B. T, U, V)                                                                                     | Verwendung des Pipe-Symbols (`                                                                                                  | `)     |
