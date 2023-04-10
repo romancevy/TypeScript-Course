@@ -1281,7 +1281,6 @@ module.exports = {
 ```
 
 - Für Production:
-
   - Das Plugin ermöglicht das automatische Aufräumen von Build-Verzeichnissen
   - `npm install --save-dev clean-webpack-plugin`
   - Laut der [Doku](https://webpack.js.org/guides/output-management/#cleaning-up-the-dist-folder) kann seit neustem das Plugin durch die `output.clean` option ersetzt werden.
@@ -1335,4 +1334,4 @@ Es gibt mehrere Möglichkeiten, um Typ-Definitionen für 3rd Party Libraries in 
 
 - Manuelle Typ-Definitionen: Wenn keine Typ-Definitionen für eine Bibliothek verfügbar sind, können eigene manuelle Typ-Definitionen erstellt werden, indem man eine .d.ts-Datei mit den entsprechenden Typen erstellt.
 
-- Typ-Definitionen von DefinitelyTyped: Die DefinitelyTyped-Community bietet eine Sammlung von Typ-Definitionen für viele Bibliotheken, die in einem separaten Repository auf GitHub gespeichert sind.
+- Typ-Definitionen von [DefinitelyTyped](https://github.com/DefinitelyTyped/DefinitelyTyped): Die DefinitelyTyped-Community bietet eine Sammlung von Typ-Definitionen für viele Bibliotheken, die in einem separaten Repository auf GitHub gespeichert sind.
