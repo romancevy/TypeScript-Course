@@ -1281,8 +1281,10 @@ module.exports = {
 ```
 
 - Für Production:
+
   - Das Plugin ermöglicht das automatische Aufräumen von Build-Verzeichnissen
-  - `npm i clean-webpack-plugin`
+  - `npm install --save-dev clean-webpack-plugin`
+  - Laut der [Doku](https://webpack.js.org/guides/output-management/#cleaning-up-the-dist-folder) kann seit neustem das Plugin durch die `output.clean` option ersetzt werden.
 
 ```js
 // production workflow
@@ -1322,9 +1324,6 @@ module.exports = {
   plugins: [new CleanPlugin.CleanWebpackPlugin()],
 };
 ```
-
-- production workflow
-  `npm install --save-dev clean-webpack-plugin`
 
 # Working with 3rd Party Libraries & TypeScript
 
